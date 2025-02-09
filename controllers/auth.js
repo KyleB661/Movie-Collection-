@@ -21,7 +21,7 @@ router.post("/sign-up", async (req, res) => {
       username: req.body.username,
       password: hashedPassword,
     })
-    res.send("Created user")
+    res.redirect("/auth/sign-in")
   });
   
   router.get("/sign-in", (req, res) => {
@@ -38,7 +38,18 @@ router.post("/sign-up", async (req, res) => {
     return res.send("Login failed.");
   }
   
-    res.send("Sign in request received!");
+  req.session.user = {
+    username: userInDatabase.username,
+    _id: userInDatabase._id
+  };
+  
+    res.redirect("/");
   });
+
+  router.get("/sign-out", (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
+  });
+  
   
   module.exports = router;

@@ -1,7 +1,23 @@
 const mongoose = require("mongoose");
 
-const applicationSchema = new mongoose.Schema({
-    // properties of applications
+const movieSchema = new mongoose.Schema({
+    title: {
+      type: String,
+      required: true,
+    },
+    genre: {
+      type: String,
+      required: true,
+    },
+    runtime: {
+      type: Number,
+    },
+    director: {
+      type: String,
+    },
+    yearOfRelease: {
+      type: Number,
+    }
   });
 
 const userSchema = new mongoose.Schema({
@@ -13,7 +29,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  applications: [applicationSchema],
 });
 
 const User = mongoose.model("User", userSchema);
