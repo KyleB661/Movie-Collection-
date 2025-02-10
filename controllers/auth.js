@@ -8,6 +8,7 @@ router.get("/sign-up", (req, res) => {
 });
 
 router.post("/sign-up", async (req, res) => {
+  try {
   const userInDatabase = await User.findOne({ username: req.body.username });
   if (userInDatabase) {
     return res.send("Username already taken.");
@@ -22,6 +23,10 @@ router.post("/sign-up", async (req, res) => {
       password: hashedPassword,
     })
     res.redirect("/auth/sign-in")
+  }catch(error){
+    console.log(error);
+    res.redirect("error");
+  }
   });
   
   router.get("/sign-in", (req, res) => {
@@ -29,13 +34,14 @@ router.post("/sign-up", async (req, res) => {
   });
   
   router.post("/sign-in", async (req, res) => {
+    try {
     const userInDatabase = await User.findOne({ username: req.body.username });
     if (!userInDatabase) {
-    return res.send("Login failed.");
+      return res.send("User or password do not exist")
   }
     const correctPassword = bcrypt.compareSync(req.body.password,userInDatabase.password);
     if (!correctPassword) {
-    return res.send("Login failed.");
+      return res.send("User or password do not exist")
   }
   
   req.session.user = {
@@ -43,7 +49,12 @@ router.post("/sign-up", async (req, res) => {
     _id: userInDatabase._id
   };
   
-    res.redirect("/");
+    res.redirect(`/users/${userInDatabase._id}`);
+
+  }catch(error) {
+      console.log(error);
+      res.redirect("error")      
+    }
   });
 
   router.get("/sign-out", (req, res) => {

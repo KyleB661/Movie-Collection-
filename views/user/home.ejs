@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+</head>
+<body>
+    <h1>Welcome, <%= user.username %> This is your home page</h1>
+
+    <p> Movies list</p>
+    
+    <% if (user.movies.length > 0) { %>
+      <ul>
+        <% user.movies.forEach(movie => { %>
+          <li>
+            <a href="/movies/<%= movie._id %>"><%= movie.title %></a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+        <p>No movie!</p>
+    <% } %>
+
+    <a href="/users/<%=user._id %>/movie/new">Add movie</a>
+
+</body>
+</html>

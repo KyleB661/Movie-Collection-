@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+</head>
+<body>
+    <h1>Movie Details: <%= movie.title %></h1>
+    
+    <p>Title: <%= movie.title %></p>
+    <p>Genre: <%= movie.genre %></p>
+    <p>Runtime: <%= movie.runtime %> mins</p>
+    <p>Director: <%= movie.director %></p>
+    <p>Year of Release: <%= movie.yearOfRelease %></p>
+
+    <a href="/users/<%= user._id %>/movie/<%= movie._id %>/edit">Edit Movie</a>
+
+    <form action="/users/<%= user._id %>/movie/<%= movie._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete Movie</button>
+    </form>
+    
+
+    <a href="/users/<%= user._id %>">Back to your home page</a>
+</body>
+</html>

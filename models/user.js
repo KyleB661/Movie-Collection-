@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  movies: [movieSchema]
 });
 
 const User = mongoose.model("User", userSchema);

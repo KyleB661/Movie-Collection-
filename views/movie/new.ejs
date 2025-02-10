@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+</head>
+<body>
+    <h1>Add Movie</h1>
+
+    <form action="/users/<%= userId %>/movie" method="post">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title">
+
+        <label for="genre">Genre</label>
+        <input type="text" name="genre" id="genre">
+
+        <label for="runtime">Runtime</label>
+        <input type="number" name="runtime" id="runetime">
+
+        <label for="director">Director</label>
+        <input type="text" name="director" id="director">
+
+        <label for="yearOfRelease">Year of release</label>
+        <input type="number" name="yearOfRelease" id="yearOfRelease">
+
+        <button type="submit">Add Movie</button>
+    </form>
+</body>
+</html>
