@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+  <nav>
+    <a href="/">Home</a>
+    <% if (user) { %>
+    <a href="/auth/sign-out">Sign Out</a>  
+    <% } %>
+   </nav> 
+
+
     <% if (user) { %>
         <h1>Welcome <%= user.username %>!</h1>
         <p><a href="/auth/sign-out">Sign out</a></p>

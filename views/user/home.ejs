@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/auth/sign-out">Sign Out</a>  
+   </nav>
+
     <h1>Welcome, <%= user.username %> This is your home page</h1>
 
     <p> Movies list</p>
@@ -14,7 +21,7 @@
       <ul>
         <% user.movies.forEach(movie => { %>
           <li>
-            <a href="/movies/<%= movie._id %>"><%= movie.title %></a>
+            <a href="/users/<%= user._id %>/movie/<%= movie._id %>"><%= movie.title %></a>
           </li>
         <% }) %>
       </ul>
