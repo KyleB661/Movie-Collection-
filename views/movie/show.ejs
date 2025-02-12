@@ -9,23 +9,29 @@
 <body>
     <nav>
         <a href="/">Home</a>
+        <a href="/users/<%= user._id %>">My Watchlist</a>
         <a href="/auth/sign-out">Sign Out</a>  
     </nav> 
 
 
     <h1>Movie Details: <%= movie.title %></h1>
     
+    <div class="movieDetails">
     <p>Title: <%= movie.title %></p>
     <p>Genre: <%= movie.genre %></p>
     <p>Runtime: <%= movie.runtime %> mins</p>
     <p>Director: <%= movie.director %></p>
     <p>Year of Release: <%= movie.yearOfRelease %></p>
+    </div>
 
-    <a href="/users/<%= user._id %>/movie/<%= movie._id %>/edit">Edit Movie</a>
+    <form action="/users/<%= user._id %>/movie/<%= movie._id %>/edit" method="GET">
+        <button type="submit">Edit Movie</button>
+    </form>
 
     <form action="/users/<%= user._id %>/movie/<%= movie._id %>?_method=DELETE" method="POST">
         <button type="submit">Delete Movie</button>
     </form>
+        
     
 
     <a href="/users/<%= user._id %>">Back to your home page</a>

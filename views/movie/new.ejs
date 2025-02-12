@@ -9,9 +9,11 @@
 <body>
     <nav>
         <a href="/">Home</a>
+        <% if (typeof user !== "undefined") { %>
+            <a href="/users/<%= user._id %>">My Watchlist</a>
+        <% } %>
         <a href="/auth/sign-out">Sign Out</a>  
     </nav> 
-
     <h1>Add Movie</h1>
 
     <form action="/users/<%= userId %>/movie" method="post">

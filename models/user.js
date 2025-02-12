@@ -17,6 +17,9 @@ const movieSchema = new mongoose.Schema({
     },
     yearOfRelease: {
       type: Number,
+    },
+    watchedStatus: {
+      type: Boolean, default: false
     }
   });
 

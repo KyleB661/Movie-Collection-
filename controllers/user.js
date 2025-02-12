@@ -14,7 +14,7 @@ router.get("/:id", async (req, res) => {
   
     res.render("movie/new.ejs", {userId})
   })
-  
+
   router.post("/:id/movie", async (req, res) => {
     const userId = req.params.id;
     const { title, genre, runtime, director, yearOfRelease } = req.body;
@@ -64,7 +64,7 @@ router.get("/:id", async (req, res) => {
   router.put("/:id/movie/:movieId", async (req, res) => {
     const userId = req.params.id;
     const movieId = req.params.movieId;
-    const { title, genre, runtime, director, yearOfRelease } = req.body;
+    const { title, genre, runtime, director, yearOfRelease, watchedStatus } = req.body;
   
     const user = await User.findById(userId);
     const movie = user.movies.id(movieId);
@@ -74,10 +74,31 @@ router.get("/:id", async (req, res) => {
     movie.runtime = runtime;
     movie.director = director;
     movie.yearOfRelease = yearOfRelease;
+    movie.watchedStatus = watchedStatus === "on";
   
     await user.save();
   
     res.redirect(`/users/${userId}`);
+  });
+  
+  router.put("/:id/movie/:movieId/watched", async (req, res) => {
+    try {
+      const { id: userId, movieId } = req.params;
+  
+      const user = await User.findById(userId);
+      if (!user) return res.redirect("/error");
+  
+      const movie = user.movies.id(movieId);
+      if (!movie) return res.redirect("/error");
+  
+      movie.watchedStatus = !movie.watchedStatus;
+      await user.save();
+  
+      res.redirect(`/users/${userId}`);
+    } catch (err) {
+      console.error(err);
+      res.redirect("/error");
+    }
   });
   
   router.delete("/:id/movie/:movieId", async (req, res) => {

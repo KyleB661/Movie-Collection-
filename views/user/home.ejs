@@ -10,26 +10,37 @@
 
   <nav>
     <a href="/">Home</a>
+    <a href="/users/<%= user._id %>">My Watchlist</a>
     <a href="/auth/sign-out">Sign Out</a>  
-   </nav>
+  </nav>
 
-    <h1>Welcome, <%= user.username %> This is your home page</h1>
+  <h1>Welcome, <%= user.username %>! This is your Movie Watchlist</h1>
 
-    <p> Movies list</p>
-    
-    <% if (user.movies.length > 0) { %>
-      <ul>
-        <% user.movies.forEach(movie => { %>
-          <li>
-            <a href="/users/<%= user._id %>/movie/<%= movie._id %>"><%= movie.title %></a>
-          </li>
-        <% }) %>
-      </ul>
-    <% } else { %>
-        <p>No movie!</p>
-    <% } %>
+  <h2>Movies list</h2>
 
-    <a href="/users/<%=user._id %>/movie/new">Add movie</a>
+  <% if (user.movies.length > 0) { %>
+    <ul>
+      <% user.movies.forEach(movie => { %>
+        <li class="movie-item">
+          <a href="/users/<%= user._id %>/movie/<%= movie._id %>"><%= movie.title %></a>
+          - <%= movie.watchedStatus ? "✅ Watched" : "❌ Not Watched" %>
+
+          <form action="/users/<%= user._id %>/movie/<%= movie._id %>/watched?_method=PUT" method="POST" style="display:inline;">
+            <button type="submit">
+              <%= movie.watchedStatus ? "Mark as Unwatched" : "Mark as Watched" %>
+            </button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>No movies yet!</p>
+  <% } %>
+
+  <form action="/users/<%= user._id %>/movie/new" method="GET">
+    <button type="submit">Add Movie</button>
+  </form>
+  
 
 </body>
 </html>
